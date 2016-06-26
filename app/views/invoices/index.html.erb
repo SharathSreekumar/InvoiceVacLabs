@@ -50,11 +50,11 @@
               <tbody>
               <% @invoices.each do |invoice| %>
                 <tr>
-                  <td><%= invoice.invoice_date.strftime("%e %B %Y") %></td>
-                  <td><%= invoice.invoice %></td>
-                  <td><%= invoice.customer_name %></td>
-                  <td><%= invoice.product %></td>
-                  <td><%= invoice.amount %></td>
+                  <td width="10%"><%= invoice.invoice_date.strftime("%e %B %Y") %></td>
+                  <td width="10%"><%= invoice.invoice %></td>
+                  <td width="17%"><%= invoice.customer_name %></td>
+                  <td width="55%"><%= invoice.product %></td>
+                  <td width="8%"><%= invoice.amount %></td>
                 </tr>
               <% end %>
               </tbody>
