@@ -63,7 +63,7 @@
                     <div class="col-md-6 col-sm-6">
                       <div class="field">
                         <%= f.label :invoice_date %><br>
-                        <%= f.date_select :invoice_date, :class => "form-control" %>
+                        <% #f.date_select :invoice_date, :class => "form-control" %>
                         <input type="date" name="invoice[date]" class="form-control" value=<%= Time.now %>/>
                       </div>
                     </div>

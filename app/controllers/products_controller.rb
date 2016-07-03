@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.all.order("rate asc")
   end
 
   # GET /products/1
@@ -29,7 +29,6 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        #format.json { render :show, status: :created, location: @product }
         format.json { render :index, status: :created, location: @product }
       else
         format.html { render :new }
@@ -44,7 +43,6 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        #format.json { render :show, status: :ok, location: @product }
         format.json { render :index, status: :ok, location: @product }
       else
         format.html { render :edit }

@@ -1,6 +1,60 @@
-$(document).on('ready page:load', function () {
-  // Actions to do
-});
+window.onload = function(){
+	var startI = parseInt($('#start').val());
+	var endI = parseInt($('#end').val());
+	$("#tableInvoice > tbody > tr").hide().slice(startI, endI).show();
+
+	var startP = parseInt($('#startP').val());
+	var endP = parseInt($('#endP').val());
+	$("#tableProduct > tbody > tr").hide().slice(startP, endP).show();
+};
+
+function onPrev(){
+	var start = parseInt($('#start').val());
+	var end = parseInt($('#end').val());
+	if(	start >= 5){
+		start -= 5;
+		end -= 5;
+		$("#tableInvoice > tbody > tr").hide().slice(start, end).show();
+		$('#start').val(start.toString());
+		$('#end').val(end.toString());
+	}	
+}
+
+function onNext(){
+	var start = parseInt($('#start').val());
+	var end = parseInt($('#end').val());
+	if(end < $("#tableInvoice > tbody > tr").size()){
+		start += 5;
+		end += 5;
+		$("#tableInvoice > tbody > tr").hide().slice(start, end).show();
+		$('#start').val(start.toString());
+		$('#end').val(end.toString());
+	}
+}
+
+function prevProd(){
+	var start = parseInt($('#startP').val());
+	var end = parseInt($('#endP').val());
+	if(	start >= 5){
+		start -= 5;
+		end -= 5;
+		$("#tableProduct > tbody > tr").hide().slice(start, end).show();
+		$('#startP').val(start.toString());
+		$('#endP').val(end.toString());
+	}	
+}
+
+function nextProd(){
+	var start = parseInt($('#startP').val());
+	var end = parseInt($('#endP').val());
+	if(end < $("#tableProduct > tbody > tr").size()){
+		start += 5;
+		end += 5;
+		$("#tableProduct > tbody > tr").hide().slice(start, end).show();
+		$('#startP').val(start.toString());
+		$('#endP').val(end.toString());
+	}
+}
 
 function searchBox(){
 	if ($('#search').val() == null || $('#search').val() == ""){
@@ -15,8 +69,6 @@ function overrideLink(indexX){ // gets the value from the dropdown & assigns the
 	
 	var table = document.getElementById("newTable");
 	
-	//alert(indexX.options[indexX.selectedIndex].text);// // <- fetces individual dropdown selected text
-	//alert(indexX.value);// <- fetces individual dropdown values
 	if(indexX.options[indexX.selectedIndex].text.search("Custom") == -1){
 		var index = indexX.selectedIndex;
 		$(table.rows.item(x).cells[1]).find('a').attr("href","/products/"+ index +"/edit");
@@ -55,10 +107,8 @@ function addTableRow(){ // adds new row & 5 columns to the table
 
 	var colCount = table.rows[0].cells.length;
 
-	//alert("Row count: " + rowCount + " Col count: " + colCount);
 	for(var i = 0; i < colCount; i++) {
 		var newcell	= row.insertCell(i);// insert cell
-		//alert(colCount); // <- displays column count of that row
 		newcell.innerHTML = table.rows[0].cells[i].innerHTML;
 	}
 }

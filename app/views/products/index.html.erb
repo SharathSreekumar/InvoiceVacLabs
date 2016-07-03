@@ -26,7 +26,7 @@
             <div class="row">
               <div class="col-md-1 col-sm-1"></div>
               <div class="col-md-10 col-sm-10">
-                <table class="table">
+                <table class="table" id="tableProduct">
                   <thead>
                     <tr>
                       <th>Product name</th>
@@ -50,8 +50,10 @@
               <div class="col-md-4 col-sm-4" style="padding-left:5%">
                 <nav>
                   <ul class="pagination">
-                    <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo; Prev</span></a></li>
-                    <li><a href="#" aria-label="Next"><span aria-hidden="true">Next &raquo;</span></a></li>
+                    <input type="hidden" id="startP" value="0" />
+                    <input type="hidden" id="endP" value="5" />
+                    <li><a href="#" aria-label="Previous" onclick="prevProd()"><span aria-hidden="true">&laquo; Prev</span></a></li>
+                    <li><a href="#" aria-label="Next" onclick="nextProd()"><span aria-hidden="true">Next &raquo;</span></a></li>
                   </ul>
                 </nav>
               </div>
