@@ -15,9 +15,16 @@ html, body {
 	padding: 6px 15px;
 }
 
+.col-btn-sidebar{
+	padding-top:48px;
+	padding-right:0px;
+}
+
 .col-temp {
-	padding-left: 0px;
-	padding-right: 0px;
+	padding: 0px 0px;
+	/*padding-left: 0px;
+	padding-top: 0px;
+	top: 0px;*/
 }
 
 .btn-yellow {

@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20160618183613) do
 
   create_table "invoices", force: :cascade do |t|
     t.string   "customer_name"
-    t.integer  "customer_phone"
+    t.integer  "customer_phone", limit: 8
     t.string   "customer_email"
     t.string   "invoice"
     t.datetime "invoice_date"
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20160618183613) do
     t.float    "rate"
     t.integer  "quantity"
     t.float    "amount"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "products", force: :cascade do |t|

@@ -1,3 +1,15 @@
+$(document).on('ready page:load', function () {
+  // Actions to do
+});
+
+function searchBox(){
+	if ($('#search').val() == null || $('#search').val() == ""){
+		$('#formSearch').action = "/invoices";
+	}else{
+		$('#formSearch').action = "/invoices?" + $('#search').val();
+	}
+}
+
 function overrideLink(indexX){ // gets the value from the dropdown & assigns the rate & Edit option
 	var x = $(indexX).closest('tr').index();
 	
@@ -5,15 +17,17 @@ function overrideLink(indexX){ // gets the value from the dropdown & assigns the
 	
 	//alert(indexX.options[indexX.selectedIndex].text);// // <- fetces individual dropdown selected text
 	//alert(indexX.value);// <- fetces individual dropdown values
-	if(indexX.options[indexX.selectedIndex].text != "Custom"){
+	if(indexX.options[indexX.selectedIndex].text.search("Custom") == -1){
 		var index = indexX.selectedIndex;
 		$(table.rows.item(x).cells[1]).find('a').attr("href","/products/"+ index +"/edit");
 		$(table.rows.item(x).cells[1]).find('a').css('display','block');
 		$(table.rows.item(x).cells[1]).find('input').val(indexX.value);
+		$(table.rows.item(x).cells[0]).find('input').val($(indexX).children(':selected').text());
 	}else{
 		$(table.rows.item(x).cells[1]).find('a').attr("href","");
 		$(table.rows.item(x).cells[1]).find('a').css('display','none');
 		$(table.rows.item(x).cells[1]).find('input').val(10);
+		$(table.rows.item(x).cells[0]).find('input').val($(indexX).children(':selected').text());
 	}
 	amount(indexX); // <- calls directly as the quantity is initially set to 1
 }

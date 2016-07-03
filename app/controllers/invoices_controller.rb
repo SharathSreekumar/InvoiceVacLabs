@@ -4,7 +4,16 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    @invoices = Invoice.all
+    @invoices = Invoice.all#.order("id asc").order("id asc").limit(5)
+    if params[:search]
+      @invoices = Invoice.search(params[:search])#where("invoice LIKE ?","%" + "INV001" + "%")
+    else
+      @invoices = Invoice.select(:invoice).uniq
+    end
+    #@invoices = Invoice.where("invoices LIKE ?","%" + "INV001" + "%")
+    #@invoices = Invoice.where("invoices LIKE ?","%" + params[:seaarch] + "%")
+    #@invoices = Invoice.search(params[:search])
+    #@uniqInvoice = Invoice.select(:invoice).uniq
   end
 
   # GET /invoices/1
@@ -25,11 +34,39 @@ class InvoicesController < ApplicationController
   # POST /invoices.json
   def create
     @invoice = Invoice.new(invoice_params)
+    @details = params[:invoice]
+    @product = params[:ProdName] #product - list
+    @rate = params[:Rate]# rate - list
+    @quantity = params[:Quantity]# quantity - list
+    @amount = params[:Amount]# amount - list
+    
+    @date = params[:date]
+
+    puts "date is " + @details["date"].to_s
+    d = @details["invoice_date(1i)"] +'-'+ @details["invoice_date(2i)"] +'-'+ @details["invoice_date(3i)"]# year - month - date
+
+    new_records = Array.new
+    successFlag = 0
+
+    for i in 0..@rate.length - 1
+      new_records = {:customer_name => @details["customer_name"].to_s, :customer_phone => @details["customer_phone"], :customer_email => @details["customer_email"].to_s, :invoice =>  @details["invoice"].to_s, :invoice_date => d, :product => @product[i].to_s, :rate => @rate[i].to_f, :quantity => @quantity[i].to_i, :amount => @amount[i].to_f }
+      @invoiceS = Invoice.new(new_records)
+      #respond_to do |format|
+        if @invoiceS.save
+          #format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
+          #format.json { render :show, status: :created, location: @invoice }
+          successFlag = successFlag + 1
+        #else
+          #format.html { render :new }
+          #format.json { render json: @invoice.errors, status: :unprocessable_entity }
+        end# end of if-else
+      #end
+    end# end of for loop
 
     respond_to do |format|
-      if @invoice.save
+      if successFlag >= @rate.length
         format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
-        format.json { render :show, status: :created, location: @invoice }
+        format.json { render :index, status: :created, location: @invoice }
       else
         format.html { render :new }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }

@@ -15,3 +15,4 @@ In add, the user can add new products & it's quantity that s/he decided to buy. 
 
 
 The project is done on 'Ruby of Rails'.
+Database used is SQLite.
